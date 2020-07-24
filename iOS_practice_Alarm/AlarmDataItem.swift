@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 class RLM_Alarm : Object {
 
-    // 自動產生UUID
+    /// 自動產生UUID
     @objc dynamic var uuid = UUID().uuidString
     
     @objc dynamic var time: Int = 0
@@ -35,7 +36,7 @@ public struct AlarmsInTable {
 }
 
 public struct AlarmData {
-    var UUID: String
+    var UUID: String?
     var time: Int
     var label: String
     var repeatDays: [Bool]

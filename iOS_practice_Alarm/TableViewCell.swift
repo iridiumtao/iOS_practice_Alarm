@@ -13,6 +13,7 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelLabel: UILabel!
     @IBOutlet weak var alarmSwitch: UISwitch!
+    @IBOutlet weak var repeatDaysLabel: UILabel!
     
     
     override func awakeFromNib() {

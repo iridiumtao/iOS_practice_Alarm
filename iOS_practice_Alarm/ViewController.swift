@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    var alarmDatabase = AlarmDatabase()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +44,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
+        let alarmData = alarmDatabase.loadDataForTable(indexPath: indexPath.row)
+        let timeText = "\(alarmData.time / 100):\(alarmData.time % 100)"
+        cell.alarmTimeLabel.text = timeText
+        cell.labelLabel.text = alarmData.label
+        cell.alarmSwitch.setOn(alarmData.isAlarmActive, animated: true)
+        // todo 把 repeatDays 改成用數字來存 然後用Date之類的東西來轉，這樣就可以用一個for迴圈搞定
+        //cell.repeatDaysLabel.text = alarmData.repeatDays
         
         return cell
     }

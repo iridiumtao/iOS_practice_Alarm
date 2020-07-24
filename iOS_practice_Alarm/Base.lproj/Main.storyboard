@@ -41,20 +41,29 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="，週一 週二 週三 週四" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9I8-oF-HuK">
+                                                    <rect key="frame" x="55" y="48" width="169.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="9Mx-tc-v46" firstAttribute="top" secondItem="bBs-RZ-36k" secondAttribute="top" constant="7" id="30M-MD-loA"/>
+                                                <constraint firstItem="9I8-oF-HuK" firstAttribute="leading" secondItem="I2W-nY-cRX" secondAttribute="trailing" id="5Wu-rp-Cgt"/>
                                                 <constraint firstItem="ESX-0M-yL2" firstAttribute="centerY" secondItem="bBs-RZ-36k" secondAttribute="centerY" id="8Mi-A7-AbC"/>
                                                 <constraint firstItem="9Mx-tc-v46" firstAttribute="leading" secondItem="bBs-RZ-36k" secondAttribute="leading" constant="20" id="DFc-Hv-hS6"/>
                                                 <constraint firstAttribute="trailing" secondItem="ESX-0M-yL2" secondAttribute="trailing" constant="20" id="Ijf-iU-smz"/>
                                                 <constraint firstItem="I2W-nY-cRX" firstAttribute="leading" secondItem="9Mx-tc-v46" secondAttribute="leading" id="YEY-KG-jJ7"/>
                                                 <constraint firstItem="I2W-nY-cRX" firstAttribute="top" secondItem="9Mx-tc-v46" secondAttribute="bottom" id="Ywz-IP-xyv"/>
+                                                <constraint firstItem="9I8-oF-HuK" firstAttribute="top" secondItem="I2W-nY-cRX" secondAttribute="top" id="goe-kY-zQ6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="alarmSwitch" destination="ESX-0M-yL2" id="fbF-Mj-wJT"/>
                                             <outlet property="alarmTimeLabel" destination="9Mx-tc-v46" id="irb-Jm-Rfv"/>
                                             <outlet property="labelLabel" destination="I2W-nY-cRX" id="AXD-a2-fkx"/>
+                                            <outlet property="repeatDaysLabel" destination="9I8-oF-HuK" id="aB7-hK-vbR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

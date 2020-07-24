@@ -11,60 +11,66 @@ import RealmSwift
 
 struct AlarmDatabase {
     
-    
+    /// 所有的alarm
     private var alarmsInTable: [AlarmsInTable]? = nil
+    
     let realm = try! Realm()
     
-    func writeData(time: Int,
-                   label: String,
-                   repeatDays: [Bool],
-                   notificationSound: String,
-                   snooze: Bool,
-                   isAlarmActive: Bool) {
+    /// 新增／編輯 Alarm
+    func writeData(alarmData: AlarmData) {
         
+        // AlarmDataItem.swift裡的class
         let alarm = RLM_Alarm()
-        alarm.time = time
-        alarm.label = label
-        alarm.repeatDays = repeatDays
-        alarm.notificationSound = notificationSound
-        alarm.snooze = snooze
-        alarm.isAlarmActive = isAlarmActive
+        alarm.time = alarmData.time
+        alarm.label = alarmData.label
+        alarm.repeatDays = alarmData.repeatDays
+        alarm.notificationSound = alarmData.notificationSound
+        alarm.snooze = alarmData.snooze
+        alarm.isAlarmActive = alarmData.isAlarmActive
 
-        try! realm.write {
-            realm.add(alarm)
+        // 若無UUID -> 新增Alarm（會自動產生新的UUID）
+        // 若有UUID -> 寫入UUID，更新Alarm
+        if alarmData.UUID == nil {
+            try! realm.write {
+                realm.add(alarm)
+            }
+        } else {
+            alarm.uuid = alarmData.UUID!
+            try! realm.write {
+                realm.add(alarm, update: .modified)
+            }
         }
+        
         print(alarm)
         print("\(realm.configuration.fileURL!)")
     }
     
-    mutating func loadDataForTable(indexPath userIndexInTableView: Int) -> (UUID: String,
-                                                                            time: Int,
-                                                                            label: String,
-                                                                            repeatDays: [Bool],
-                                                                            isAlarmActive: Bool){
+    /// 透過與 tableView cellForRowAt 連動，逐一載入「所有鬧鐘」的「部分資料」（供顯示於table中）
+    mutating func loadDataForTable(indexPath userIndexInTableView: Int) -> AlarmsInTable {
         if alarmsInTable == nil {
             loadDataFromDatabase()
 
             print("Local data not found. Getting data from database")
             return loadDataForTable(indexPath: userIndexInTableView)
         } else {
-
-            let data: (UUID: String,
-                       time: Int,
-                       label: String,
-                       repeatDays: [Bool],
-                       isAlarmActive: Bool) = (alarmsInTable![userIndexInTableView].UUID,
-                                               alarmsInTable![userIndexInTableView].time,
-                                               alarmsInTable![userIndexInTableView].label,
-                                               alarmsInTable![userIndexInTableView].repeatDays,
-                                               alarmsInTable![userIndexInTableView].isAlarmActive)
-            return data
+            let alarmData: AlarmsInTable = AlarmsInTable(UUID: alarmsInTable![userIndexInTableView].UUID,
+                                                         time: alarmsInTable![userIndexInTableView].time,
+                                                         label: alarmsInTable![userIndexInTableView].label,
+                                                         repeatDays: alarmsInTable![userIndexInTableView].repeatDays,
+                                                         isAlarmActive: alarmsInTable![userIndexInTableView].isAlarmActive)
+            return alarmData
         }
     }
     
-    mutating func loadDataFromDatabase() {
+    /// 清除 alarmsInTable 的資料，來向資料庫重新所求資料
+    mutating func clearLocalUserData() {
+        alarmsInTable = nil
+    }
+    
+    /// 將資料庫的資料暫存至 alarmsInTable
+    private mutating func loadDataFromDatabase() {
         alarmsInTable = []
-        let alarms = realm.objects(RLM_Alarm.self).sorted(byKeyPath: "account", ascending: true)
+        let alarms = realm.objects(RLM_Alarm.self).sorted(byKeyPath: "time", ascending: true)
         for alarm in alarms {
             alarmsInTable?.append(AlarmsInTable(UUID: alarm.uuid,
                                                 time: alarm.time,
@@ -73,29 +79,21 @@ struct AlarmDatabase {
                                                 isAlarmActive: alarm.isAlarmActive))
         }
     }
-
-    mutating func clearLocalUserData() {
-        alarmsInTable = nil
-    }
     
     /// 取得單鬧鐘的全部資料
+    /// 用於顯示在點入鬧鐘後的編輯畫面
     ///
-    /// 由於tuple無法轉成Array透過indexPath.row逐一取得資料、Dictionary沒有順序，故使用Array包成Tuple來傳值
-    /// 再與圖像的NSData檔包為一 Tuple 回傳。
-    /// - parameters:
-    ///   - UUID: 所求資料的UUID
-    ///   - password: 檢查用的密碼(可能會透過雜湊值來傳輸)
-    /// - returns:
-    ///   (使用者的所有資料, 圖片的NSData)
-    func loadSingleUserFullData(UUID: String) -> () {
-        let alarm = realm.objects(RLM_Alarm.self).filter("uuid  CONTAINS '\(UUID)'").first
+    /// 嘗試透過Struct傳輸，以改善Tuple冗長的程式碼（iOS_practice_integrated中的LoginPage）
+    func loadSingleUserFullData(UUID: String) -> AlarmData {
+        let alarm = realm.objects(RLM_Alarm.self).filter("uuid  CONTAINS '\(UUID)'").first!
         
-        // todo: 嘗試把struct改為public，看看程式碼會不會比較簡單
-
-
-        return ()
+        let alarmFullData: AlarmData = AlarmData(UUID: alarm.uuid,
+                                                 time: alarm.time,
+                                                 label: alarm.label,
+                                                 repeatDays: alarm.repeatDays,
+                                                 isAlarmActive: alarm.isAlarmActive,
+                                                 notificationSound: alarm.notificationSound,
+                                                 snooze: alarm.snooze)
+        return alarmFullData
     }
-    
-    
-    
 }
