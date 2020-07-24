@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var alarmDatabase = AlarmDatabase()
+    var editMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +51,47 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.labelLabel.text = alarmData.label
         cell.alarmSwitch.setOn(alarmData.isAlarmActive, animated: true)
         // todo 把 repeatDays 改成用數字來存 然後用Date之類的東西來轉，這樣就可以用一個for迴圈搞定
-        //cell.repeatDaysLabel.text = alarmData.repeatDays
+        var repeatDaysText = ""
+        if alarmData.repeatDays != ""{
+            repeatDaysText = "，"
+            for day in alarmData.repeatDays {
+                repeatDaysText += "\(getDayOfWeekText(Int(String(day))!)) "
+            }
+            cell.repeatDaysLabel.text = repeatDaysText
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if editMode {
+            
+        }
+    }
     
+    
+}
+
+// MARK: - functions
+extension ViewController {
+    func getDayOfWeek(_ today:String) -> Int? {
+        let formatter  = DateFormatter()
+        formatter.dateFormat = "EE"
+        guard let todayDate = formatter.date(from: today) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: todayDate)
+        return weekDay
+    }
+
+    func getDayOfWeekText(_ number: Int) -> String {
+        var dateComponents = Calendar.current.dateComponents(in: TimeZone.current, from: Date())
+        dateComponents.weekday = number
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EE"
+        dateFormatter.locale = Locale.init(identifier: "zh_TW")
+        let dateString = dateFormatter.string(from: dateComponents.date!)
+        
+        return dateString
+    }
 }

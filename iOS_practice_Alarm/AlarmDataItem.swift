@@ -16,7 +16,7 @@ class RLM_Alarm : Object {
     
     @objc dynamic var time: Int = 0
     @objc dynamic var label: String = ""
-    @objc dynamic var repeatDays: [Bool] = []
+    @objc dynamic var repeatDays: String = ""
     @objc dynamic var notificationSound: String = ""
     @objc dynamic var snooze: Bool = true
     @objc dynamic var isAlarmActive: Bool = true
@@ -31,7 +31,7 @@ public struct AlarmsInTable {
     var UUID: String
     var time: Int
     var label: String
-    var repeatDays: [Bool]
+    var repeatDays: String
     var isAlarmActive: Bool
 }
 
@@ -39,7 +39,7 @@ public struct AlarmData {
     var UUID: String?
     var time: Int
     var label: String
-    var repeatDays: [Bool]
+    var repeatDays: String
     var isAlarmActive: Bool
     var notificationSound: String
     var snooze: Bool

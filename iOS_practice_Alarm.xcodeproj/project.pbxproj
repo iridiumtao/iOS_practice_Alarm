@@ -17,6 +17,7 @@
 		3C5E39F224C987B100F147F1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F124C987B100F147F1 /* TableViewCell.swift */; };
 		3C5E39F424C98B4800F147F1 /* AlarmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */; };
 		3C5E39F624C9991400F147F1 /* AlarmDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */; };
+		3C5E39F824CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		3C5E39F124C987B100F147F1 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDatabase.swift; sourceTree = "<group>"; };
 		3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataItem.swift; sourceTree = "<group>"; };
+		3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAddAlarmPageViewController.swift; sourceTree = "<group>"; };
 		B463C8842E3ADDED2271C476 /* Pods-iOS_practice_Alarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_Alarm.debug.xcconfig"; path = "Target Support Files/Pods-iOS_practice_Alarm/Pods-iOS_practice_Alarm.debug.xcconfig"; sourceTree = "<group>"; };
 		CBA47142A66207E2C40D1E65 /* Pods_iOS_practice_Alarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_practice_Alarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA887A16205692E4072D6B9B /* Pods-iOS_practice_Alarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_Alarm.release.xcconfig"; path = "Target Support Files/Pods-iOS_practice_Alarm/Pods-iOS_practice_Alarm.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				3C5E39DD24C9758A00F147F1 /* AppDelegate.swift */,
 				3C5E39DF24C9758A00F147F1 /* SceneDelegate.swift */,
 				3C5E39E124C9758A00F147F1 /* ViewController.swift */,
+				3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */,
 				3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */,
 				3C5E39E324C9758A00F147F1 /* Main.storyboard */,
 				3C5E39E624C9758B00F147F1 /* Assets.xcassets */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C5E39F824CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift in Sources */,
 				3C5E39F424C98B4800F147F1 /* AlarmDatabase.swift in Sources */,
 				3C5E39E224C9758A00F147F1 /* ViewController.swift in Sources */,
 				3C5E39F224C987B100F147F1 /* TableViewCell.swift in Sources */,
