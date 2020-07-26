@@ -106,11 +106,11 @@
                                     <constraint firstAttribute="height" constant="242" id="0sZ-CV-3Gc"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelCell" textLabel="vTN-if-R7R" detailTextLabel="1bn-hh-8Dt" style="IBUITableViewCellStyleValue1" id="a08-rK-F1H">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LabelCell" textLabel="vTN-if-R7R" detailTextLabel="1bn-hh-8Dt" style="IBUITableViewCellStyleValue1" id="a08-rK-F1H" customClass="LabelTableViewCell" customModule="iOS_practice_Alarm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a08-rK-F1H" id="aXN-Nl-wtQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vTN-if-R7R">
@@ -121,7 +121,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1bn-hh-8Dt">
-                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="331" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -129,8 +129,12 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailLabel" destination="1bn-hh-8Dt" id="6cY-b1-fUf"/>
+                                            <outlet property="titleLabel" destination="vTN-if-R7R" id="wtz-dD-C8a"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" id="A67-Kp-28C">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" id="A67-Kp-28C" customClass="SwitchTableViewCell" customModule="iOS_practice_Alarm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="71.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A67-Kp-28C" id="ek9-LA-yXK">
@@ -155,8 +159,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="7qB-or-2QN" secondAttribute="trailing" constant="20" id="zfM-gw-Rcd"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="justSwitch" destination="7qB-or-2QN" id="UeO-tk-Td0"/>
+                                            <outlet property="titleLabel" destination="EG1-zV-Dyn" id="Td3-yJ-s44"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteTextCell" id="Lud-LC-1c3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteTextCell" id="Lud-LC-1c3" customClass="DeleteTextTableViewCell" customModule="iOS_practice_Alarm" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="115" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lud-LC-1c3" id="Kco-gr-HW7">
@@ -175,6 +183,9 @@
                                                 <constraint firstItem="mZw-lm-9mp" firstAttribute="centerX" secondItem="Kco-gr-HW7" secondAttribute="centerX" id="D5G-aM-SWE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="deleteTextLabel" destination="mZw-lm-9mp" id="PW9-Fn-tfw"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -193,6 +204,9 @@
                     <connections>
                         <outlet property="datePicker" destination="Xb7-mu-8SD" id="Nl7-M1-hWH"/>
                         <outlet property="preferenceTableView" destination="J9y-VB-I5z" id="jJ7-cc-8QP"/>
+                        <segue destination="XWv-Pi-1nS" kind="show" identifier="CellRepeatSegue" id="6ci-90-PAS"/>
+                        <segue destination="Rot-wz-Q90" kind="show" identifier="CellLabelSegue" id="DrS-Ds-XdE"/>
+                        <segue destination="o7b-k2-PNg" kind="show" identifier="CellNotifySegue" id="MxJ-WG-XUV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m3E-OS-C85" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -216,6 +230,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCx-C5-Bxj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0cS-Dz-scw">
+            <objects>
+                <viewController id="XWv-Pi-1nS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TLU-17-xlX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eZx-rx-aLf"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FNN-JU-yOB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Q4-gZ-Uh3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2786" y="-518"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hFa-Yg-J7H">
+            <objects>
+                <viewController id="Rot-wz-Q90" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3h3-RV-Vld">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="gK6-in-TIt"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XWx-Am-Xqc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GE2-92-15B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2786" y="138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="NyD-LC-DAQ">
+            <objects>
+                <viewController id="o7b-k2-PNg" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HNf-Yj-mVh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="dE6-Ej-Rtb"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xRh-Ac-WZo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DxD-8H-ihz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2786" y="783"/>
         </scene>
     </scenes>
 </document>

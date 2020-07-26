@@ -45,6 +45,11 @@ struct AlarmDatabase {
         print("\(realm.configuration.fileURL!)")
     }
     
+    func getDataCount() -> Int {
+        let alarms = realm.objects(RLM_Alarm.self)
+        return alarms.count
+    }
+    
     /// 透過與 tableView cellForRowAt 連動，逐一載入「所有鬧鐘」的「部分資料」（供顯示於table中）
     mutating func loadDataForTable(indexPath userIndexInTableView: Int) -> AlarmsInTable {
         if alarmsInTable == nil {

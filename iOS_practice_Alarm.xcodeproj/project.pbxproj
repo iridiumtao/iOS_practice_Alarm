@@ -18,6 +18,9 @@
 		3C5E39F424C98B4800F147F1 /* AlarmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */; };
 		3C5E39F624C9991400F147F1 /* AlarmDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */; };
 		3C5E39F824CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */; };
+		3C8DE6D824CD6ECB008C60A1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6D724CD6ECB008C60A1 /* SwitchTableViewCell.swift */; };
+		3C8DE6DE24CD6FB6008C60A1 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6DD24CD6FB6008C60A1 /* LabelTableViewCell.swift */; };
+		3C8DE6E024CD7090008C60A1 /* DeleteTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6DF24CD7090008C60A1 /* DeleteTextTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDatabase.swift; sourceTree = "<group>"; };
 		3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataItem.swift; sourceTree = "<group>"; };
 		3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAddAlarmPageViewController.swift; sourceTree = "<group>"; };
+		3C8DE6D724CD6ECB008C60A1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		3C8DE6DD24CD6FB6008C60A1 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
+		3C8DE6DF24CD7090008C60A1 /* DeleteTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTextTableViewCell.swift; sourceTree = "<group>"; };
 		B463C8842E3ADDED2271C476 /* Pods-iOS_practice_Alarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_Alarm.debug.xcconfig"; path = "Target Support Files/Pods-iOS_practice_Alarm/Pods-iOS_practice_Alarm.debug.xcconfig"; sourceTree = "<group>"; };
 		CBA47142A66207E2C40D1E65 /* Pods_iOS_practice_Alarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_practice_Alarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA887A16205692E4072D6B9B /* Pods-iOS_practice_Alarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_practice_Alarm.release.xcconfig"; path = "Target Support Files/Pods-iOS_practice_Alarm/Pods-iOS_practice_Alarm.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,19 +77,46 @@
 		3C5E39DC24C9758A00F147F1 /* iOS_practice_Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				3C8DE6DB24CD6EEB008C60A1 /* AlarmPage */,
 				3C5E39DD24C9758A00F147F1 /* AppDelegate.swift */,
 				3C5E39DF24C9758A00F147F1 /* SceneDelegate.swift */,
-				3C5E39E124C9758A00F147F1 /* ViewController.swift */,
-				3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */,
-				3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */,
 				3C5E39E324C9758A00F147F1 /* Main.storyboard */,
 				3C5E39E624C9758B00F147F1 /* Assets.xcassets */,
 				3C5E39E824C9758B00F147F1 /* LaunchScreen.storyboard */,
 				3C5E39EB24C9758B00F147F1 /* Info.plist */,
-				3C5E39F124C987B100F147F1 /* TableViewCell.swift */,
 				3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */,
 			);
 			path = iOS_practice_Alarm;
+			sourceTree = "<group>";
+		};
+		3C8DE6DB24CD6EEB008C60A1 /* AlarmPage */ = {
+			isa = PBXGroup;
+			children = (
+				3C8DE6DC24CD6F26008C60A1 /* EditAddAlarmPage */,
+				3C5E39E124C9758A00F147F1 /* ViewController.swift */,
+				3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */,
+				3C5E39F124C987B100F147F1 /* TableViewCell.swift */,
+			);
+			path = AlarmPage;
+			sourceTree = "<group>";
+		};
+		3C8DE6DC24CD6F26008C60A1 /* EditAddAlarmPage */ = {
+			isa = PBXGroup;
+			children = (
+				3C8DE6E124CD7851008C60A1 /* PageInCells */,
+				3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */,
+				3C8DE6DD24CD6FB6008C60A1 /* LabelTableViewCell.swift */,
+				3C8DE6D724CD6ECB008C60A1 /* SwitchTableViewCell.swift */,
+				3C8DE6DF24CD7090008C60A1 /* DeleteTextTableViewCell.swift */,
+			);
+			path = EditAddAlarmPage;
+			sourceTree = "<group>";
+		};
+		3C8DE6E124CD7851008C60A1 /* PageInCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PageInCells;
 			sourceTree = "<group>";
 		};
 		66B5D5001972412826BBD203 /* Frameworks */ = {
@@ -223,6 +256,9 @@
 				3C5E39E224C9758A00F147F1 /* ViewController.swift in Sources */,
 				3C5E39F224C987B100F147F1 /* TableViewCell.swift in Sources */,
 				3C5E39DE24C9758A00F147F1 /* AppDelegate.swift in Sources */,
+				3C8DE6D824CD6ECB008C60A1 /* SwitchTableViewCell.swift in Sources */,
+				3C8DE6DE24CD6FB6008C60A1 /* LabelTableViewCell.swift in Sources */,
+				3C8DE6E024CD7090008C60A1 /* DeleteTextTableViewCell.swift in Sources */,
 				3C5E39F624C9991400F147F1 /* AlarmDataItem.swift in Sources */,
 				3C5E39E024C9758A00F147F1 /* SceneDelegate.swift in Sources */,
 			);

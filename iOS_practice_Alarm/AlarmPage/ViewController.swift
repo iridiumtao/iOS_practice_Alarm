@@ -32,14 +32,29 @@ class ViewController: UIViewController {
     
     @objc func addAlarm(){
         print("addAlarm")
+        performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
 
+        //
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "EditAddAlarmPageSegue" {
+
+            let editAddAlarmPageVC = segue.destination as! EditAddAlarmPageViewController
+            editAddAlarmPageVC.receivedActionMode = "加入"
+
+            
+
+        }
     }
 }
 
 // MARK: - tableView
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return alarmDatabase.getDataCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
