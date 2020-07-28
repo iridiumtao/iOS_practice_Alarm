@@ -13,9 +13,11 @@ class ViewController: UIViewController {
     
     var alarmDatabase = AlarmDatabase()
     var editMode = false
+    var editOrAdd = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -28,24 +30,23 @@ class ViewController: UIViewController {
     
     @objc func editAlarm(){
         print("editAlarm")
+        editOrAdd = "編輯"
+        performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
     }
     
     @objc func addAlarm(){
         print("addAlarm")
+        editOrAdd = "加入"
         performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
-
-        //
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "EditAddAlarmPageSegue" {
 
-            let editAddAlarmPageVC = segue.destination as! EditAddAlarmPageViewController
-            editAddAlarmPageVC.receivedActionMode = "加入"
-
-            
+            let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
+            let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
+            editAddAlarmPageVC.receivedActionMode = editOrAdd
 
         }
     }

@@ -15,6 +15,10 @@ class EditAddAlarmPageViewController: UIViewController {
     var receivedActionMode = ""
     var receivedAlarmData: AlarmData? = nil
     
+    var labelText = "鬧鐘"
+    
+    var alarmDatabase = AlarmDatabase()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,17 +27,18 @@ class EditAddAlarmPageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(cancelOnClicked))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(saveOnClicked))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .done, target: self, action: #selector(saveOnClicked))
         self.navigationItem.title = "\(receivedActionMode)鬧鐘"
     }
     
     @objc func cancelOnClicked(){
         print("cancelOnClicked")
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func saveOnClicked(){
         print("saveOnClicked")
-
+        
     }
 }
 
@@ -77,7 +82,7 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 return labelCell
             case 1:
                 labelCell.titleLabel.text = "標籤"
-                labelCell.detailLabel.text = "鬧鐘"
+                labelCell.detailLabel.text = labelText
                 return labelCell
             case 2:
                 labelCell.titleLabel.text = "提示聲"
@@ -99,6 +104,39 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                // 重複
+                performSegue(withIdentifier: "CellRepeatSegue", sender: nil)
+            case 1:
+                // 標籤
+                performSegue(withIdentifier: "CellLabelSegue", sender: nil)
+            case 2:
+                // 提示聲
+               performSegue(withIdentifier: "CellNotifySegue", sender: nil)
+            case 3:
+                // 稍後提醒
+                break
+            default: break
+                
+            }
+        } else {
+            // 刪除
+            
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "EditAddAlarmPageSegue" {
+
+            let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
+            let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
+
+
+        }
     }
     
 }
