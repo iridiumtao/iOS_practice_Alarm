@@ -19,6 +19,7 @@ class EditAddAlarmPageViewController: UIViewController {
     
     var alarmDatabase = AlarmDatabase()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,16 +30,25 @@ class EditAddAlarmPageViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(cancelOnClicked))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .done, target: self, action: #selector(saveOnClicked))
         self.navigationItem.title = "\(receivedActionMode)鬧鐘"
+        
+        print("EditAddAlarmPage: ViewDidLoad")
+        
     }
     
     @objc func cancelOnClicked(){
-        print("cancelOnClicked")
+        print("EditAddAlarmPage: cancelOnClicked")
         dismiss(animated: true, completion: nil)
     }
     
     @objc func saveOnClicked(){
-        print("saveOnClicked")
+        print("EditAddAlarmPage: saveOnClicked")
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        preferenceTableView.reloadData()
+        print("EditAddAlarmPage: viewDidAppear")
+        print("labelText: "+labelText)
     }
 }
 
@@ -130,12 +140,20 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "EditAddAlarmPageSegue" {
-
-            let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
-            let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
-
-
+        switch segue.identifier {
+            case "EditAddAlarmPageSegue":
+//                let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
+//                let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
+                break
+            
+            case "CellRepeatSegue":
+                print("CellRepeatSegue")
+            case "CellLabelSegue":
+                print("CellLabelSegue")
+                let cellLabelVC = segue.destination as! CellLabelViewController
+                cellLabelVC.labelText = labelText
+            default:
+                break
         }
     }
     

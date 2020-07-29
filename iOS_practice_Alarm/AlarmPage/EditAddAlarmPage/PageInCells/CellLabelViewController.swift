@@ -12,6 +12,8 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
 
     var labelText = ""
     
+
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -28,13 +30,27 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "Cell", for: indexPath) as! CellLabelTextFieldTableViewCell
-        labelText = cell.textField.text!
+        cell.textField.text = labelText
+        print(labelText+" vs "+cell.textField.text!)
         return cell
     }
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if let editAddAlarmPageVC = presentingViewController as? EditAddAlarmPageViewController {
-            editAddAlarmPageVC.labelText = labelText
-        }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("CellLabel: viewWillDisappear")
+        let editAddAlarmPageVC =  EditAddAlarmPageViewController()
+            
+        print("hi")
+        
+        let cellLabelTextFieldTableViewCell = CellLabelTextFieldTableViewCell()
+        
+        editAddAlarmPageVC.labelText = "yrse"
+        //todo: https://www.hackingwithswift.com/example-code/system/how-to-pass-data-between-two-view-controllers
+        
+        print(editAddAlarmPageVC.labelText)
+        
     }
+    
+    
 }

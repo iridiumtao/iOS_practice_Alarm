@@ -10,7 +10,7 @@ import UIKit
 
 class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let daysOfWeek: [String] = [    "星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
+    let daysOfWeek: [String] = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -34,7 +34,9 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        
+    }
     
 
 }
