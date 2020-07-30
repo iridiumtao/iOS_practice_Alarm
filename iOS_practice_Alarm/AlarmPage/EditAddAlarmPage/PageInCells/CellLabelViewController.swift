@@ -12,7 +12,7 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
 
     var labelText = ""
     
-
+    var completionHandler:((String) -> Void)?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -31,25 +31,25 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "Cell", for: indexPath) as! CellLabelTextFieldTableViewCell
         cell.textField.text = labelText
-        print(labelText+" vs "+cell.textField.text!)
         return cell
     }
+    
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         print("CellLabel: viewWillDisappear")
-        let editAddAlarmPageVC =  EditAddAlarmPageViewController()
-            
-        print("hi")
         
-        let cellLabelTextFieldTableViewCell = CellLabelTextFieldTableViewCell()
+        let index = IndexPath(row: 0, section: 0)
+        let cell = self.tableView.cellForRow(at: index) as! CellLabelTextFieldTableViewCell
+        labelText = cell.textField.text!
+        print("labelText: "+labelText)
+
+        completionHandler?(labelText)
         
-        editAddAlarmPageVC.labelText = "yrse"
-        //todo: https://www.hackingwithswift.com/example-code/system/how-to-pass-data-between-two-view-controllers
         
-        print(editAddAlarmPageVC.labelText)
-        
+
     }
     
     

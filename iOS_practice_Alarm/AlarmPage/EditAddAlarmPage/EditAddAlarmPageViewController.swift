@@ -16,6 +16,8 @@ class EditAddAlarmPageViewController: UIViewController {
     var receivedAlarmData: AlarmData? = nil
     
     var labelText = "鬧鐘"
+    var selectedDaysOfWeek = Dictionary<Int, String>()
+    var selectedDaysOfWeekText = ""
     
     var alarmDatabase = AlarmDatabase()
     
@@ -46,9 +48,27 @@ class EditAddAlarmPageViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        preferenceTableView.reloadData()
         print("EditAddAlarmPage: viewDidAppear")
-        print("labelText: "+labelText)
+    }
+    
+    func getDaysOfWeekString(daysOfWeek: [Int : String]) -> String {
+        var days = ""
+        if daysOfWeek.keys.contains(1) && daysOfWeek.keys.contains(7) {
+            return "假日"
+        } else if daysOfWeek.keys.contains(2) &&
+                  daysOfWeek.keys.contains(3) &&
+                  daysOfWeek.keys.contains(4) &&
+                  daysOfWeek.keys.contains(5) &&
+                  daysOfWeek.keys.contains(6) {
+            return "平日"
+        } else if daysOfWeek.count == 0 {
+            return "永不"
+        } else {
+            for day in daysOfWeek.values.sorted(by: <) {
+                days += "\(day) "
+            }
+            return days
+        }
     }
 }
 
@@ -87,7 +107,7 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
             case 0:
                 
                 labelCell.titleLabel.text = "重複"
-                labelCell.detailLabel.text = "永不"
+                labelCell.detailLabel.text = selectedDaysOfWeekText
                 
                 return labelCell
             case 1:
@@ -141,19 +161,35 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
-            case "EditAddAlarmPageSegue":
+        case "EditAddAlarmPageSegue":
 //                let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
 //                let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
-                break
+            break
+        
+        case "CellRepeatSegue":
+            print("CellRepeatSegue")
+            let cellPepeatVC = segue.destination as! CellRepeatViewController
+            cellPepeatVC.completionHandler = { data in
+                self.selectedDaysOfWeekText = self.getDaysOfWeekString(daysOfWeek: data)
+                self.preferenceTableView.reloadData()
+            }
             
-            case "CellRepeatSegue":
-                print("CellRepeatSegue")
-            case "CellLabelSegue":
-                print("CellLabelSegue")
-                let cellLabelVC = segue.destination as! CellLabelViewController
-                cellLabelVC.labelText = labelText
-            default:
-                break
+        case "CellLabelSegue":
+            print("CellLabelSegue")
+            let cellLabelVC = segue.destination as! CellLabelViewController
+            
+            // 把預設或設好的 labelText 傳入 cell 中
+            cellLabelVC.labelText = labelText
+            
+            cellLabelVC.completionHandler = { text in
+                print("text = \(text)")
+                // 取得使用者輸入的 text，存入 labelText中
+                self.labelText = text
+                self.preferenceTableView.reloadData()
+            }
+        
+        default:
+            break
         }
     }
     

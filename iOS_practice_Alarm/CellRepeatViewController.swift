@@ -10,7 +10,19 @@ import UIKit
 
 class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let daysOfWeek: [String] = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
+    let daysOfWeek: Dictionary<Int, String> = [1 : "星期日",
+                                               2 : "星期一",
+                                               3 : "星期二",
+                                               4 : "星期三",
+                                               5 : "星期四",
+                                               6 : "星期五",
+                                               7 : "星期六"]
+    var selectedDaysOfWeek = Dictionary<Int, String>()
+    
+    var completionHandler:((Dictionary<Int, String>) -> Void)?
+    var selectedArray: NSMutableArray = []
+
+
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -30,12 +42,47 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "Cell", for: indexPath) as UITableViewCell
-        cell.textLabel?.text = daysOfWeek[indexPath.row]
+        cell.textLabel?.text = daysOfWeek[indexPath.row + 1]
+        
+        if selectedArray.count != 0 {
+            if selectedArray.contains(indexPath.row) {
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+            } else {
+                cell.accessoryType = UITableViewCell.AccessoryType.none
+            }
+        } else {
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+        }
+        
         return cell
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if selectedArray.count != 0 {
+            if selectedArray.contains(indexPath.row) {
+                    
+                selectedArray.removeObject(at: selectedArray.index(of: indexPath.row))
+                    
+            } else {
+                
+                selectedArray.add(indexPath.row)
+                
+            }
+        } else {
+            selectedArray.add(indexPath.row)
+        }
+        
+        tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        for selected in selectedArray {
+            let day = selected as! Int + 1
+            selectedDaysOfWeek.updateValue(daysOfWeek[day]!, forKey: day)
+        }
+        
+        completionHandler?(selectedDaysOfWeek)
     }
     
 
