@@ -17,7 +17,6 @@ class EditAddAlarmPageViewController: UIViewController {
     
     var labelText = "鬧鐘"
     var selectedDaysOfWeek = Dictionary<Int, String>()
-    var selectedDaysOfWeekText = ""
     
     var alarmDatabase = AlarmDatabase()
     
@@ -107,7 +106,7 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
             case 0:
                 
                 labelCell.titleLabel.text = "重複"
-                labelCell.detailLabel.text = selectedDaysOfWeekText
+                labelCell.detailLabel.text = getDaysOfWeekString(daysOfWeek: selectedDaysOfWeek)
                 
                 return labelCell
             case 1:
@@ -169,9 +168,13 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
         case "CellRepeatSegue":
             print("CellRepeatSegue")
             let cellPepeatVC = segue.destination as! CellRepeatViewController
+            
+            cellPepeatVC.selectedDaysOfWeek = selectedDaysOfWeek
+            
             cellPepeatVC.completionHandler = { data in
-                self.selectedDaysOfWeekText = self.getDaysOfWeekString(daysOfWeek: data)
+                self.selectedDaysOfWeek = data
                 self.preferenceTableView.reloadData()
+
             }
             
         case "CellLabelSegue":
@@ -181,6 +184,8 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
             // 把預設或設好的 labelText 傳入 cell 中
             cellLabelVC.labelText = labelText
             
+            // 利用閉包的方式，將資料從 cellLabelVC 傳回此
+            // source: https://learnappmaking.com/pass-data-between-view-controllers-swift-how-to/#back-closure
             cellLabelVC.completionHandler = { text in
                 print("text = \(text)")
                 // 取得使用者輸入的 text，存入 labelText中
@@ -194,5 +199,4 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
     }
     
 }
-
 

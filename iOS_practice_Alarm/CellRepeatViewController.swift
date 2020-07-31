@@ -20,7 +20,7 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedDaysOfWeek = Dictionary<Int, String>()
     
     var completionHandler:((Dictionary<Int, String>) -> Void)?
-    var selectedArray: NSMutableArray = []
+    private var selectedArray: NSMutableArray = []
 
 
 
@@ -31,6 +31,12 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        print(selectedDaysOfWeek)
+        
+        for selectedDay in selectedDaysOfWeek {
+            selectedArray.add(selectedDay.key - 1)
+        }
+        print(selectedArray)
 
     }
     
@@ -44,6 +50,8 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell( withIdentifier: "Cell", for: indexPath) as UITableViewCell
         cell.textLabel?.text = daysOfWeek[indexPath.row + 1]
         
+        
+        // source: https://www.jianshu.com/p/3c45d744141b
         if selectedArray.count != 0 {
             if selectedArray.contains(indexPath.row) {
                 cell.accessoryType = UITableViewCell.AccessoryType.checkmark
