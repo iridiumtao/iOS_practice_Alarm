@@ -69,13 +69,9 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if selectedArray.count != 0 {
             if selectedArray.contains(indexPath.row) {
-                    
                 selectedArray.removeObject(at: selectedArray.index(of: indexPath.row))
-                    
             } else {
-                
                 selectedArray.add(indexPath.row)
-                
             }
         } else {
             selectedArray.add(indexPath.row)
@@ -85,8 +81,11 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
+        // 把 selectedDaysOfWeek 清空後，重新把選取的逐一塞入
+        selectedDaysOfWeek.removeAll()
         for selected in selectedArray {
-            let day = selected as! Int + 1
+            let day = (selected as! Int) + 1
             selectedDaysOfWeek.updateValue(daysOfWeek[day]!, forKey: day)
         }
         
