@@ -52,19 +52,34 @@ class EditAddAlarmPageViewController: UIViewController {
     
     func getDaysOfWeekString(daysOfWeek: [Int : String]) -> String {
         var days = ""
-        if daysOfWeek.keys.contains(1) && daysOfWeek.keys.contains(7) {
+        if daysOfWeek.count == 0 {
+            return "永不"
+        } else if daysOfWeek.count == 7 {
+            return "每天"
+        } else if !daysOfWeek.keys.contains(2) &&
+           !daysOfWeek.keys.contains(3) &&
+           !daysOfWeek.keys.contains(4) &&
+           !daysOfWeek.keys.contains(5) &&
+           !daysOfWeek.keys.contains(6) &&
+           daysOfWeek.keys.contains(1) &&
+           daysOfWeek.keys.contains(7) {
             return "假日"
         } else if daysOfWeek.keys.contains(2) &&
                   daysOfWeek.keys.contains(3) &&
                   daysOfWeek.keys.contains(4) &&
                   daysOfWeek.keys.contains(5) &&
-                  daysOfWeek.keys.contains(6) {
+                  daysOfWeek.keys.contains(6) &&
+                 !daysOfWeek.keys.contains(1) &&
+                 !daysOfWeek.keys.contains(7) {
             return "平日"
-        } else if daysOfWeek.count == 0 {
-            return "永不"
         } else {
-            for day in daysOfWeek.values.sorted(by: <) {
-                days += "\(day) "
+            
+            // 透過 keys 做排序
+            let sortedDaysOfWeek = daysOfWeek.sorted { firstDictionary, secondDictionary in
+                return firstDictionary.key < secondDictionary.key // 由小到大排序
+            }
+            for day in sortedDaysOfWeek {
+                days += "\(day.value) "
             }
             return days
         }
