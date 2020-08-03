@@ -17,8 +17,12 @@ class EditAddAlarmPageViewController: UIViewController {
     
     var labelText = "鬧鐘"
     var selectedDaysOfWeek = Dictionary<Int, String>()
+    var isAlarmActive = false
+    var isSnooze = false
     
     var alarmDatabase = AlarmDatabase()
+    
+    var completionHandler:(() -> Void)?
     
     
     override func viewDidLoad() {
@@ -44,10 +48,24 @@ class EditAddAlarmPageViewController: UIViewController {
     @objc func saveOnClicked(){
         print("EditAddAlarmPage: saveOnClicked")
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HHmm"
+        let dateString = formatter.string(from: datePicker.date)
+        
+        
+        let alarm = AlarmData(UUID: nil, time: dateString, label: labelText, repeatDays: dictKeyToIntArray(dictionary: selectedDaysOfWeek), isAlarmActive: isAlarmActive, notificationSound: "", snooze: isSnooze)
+        alarmDatabase.writeData(alarmData: alarm)
+        dismiss(animated: true, completion: nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("EditAddAlarmPage: viewDidAppear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        completionHandler?()
     }
     
     func getDaysOfWeekString(daysOfWeek: [Int : String]) -> String {
@@ -84,8 +102,22 @@ class EditAddAlarmPageViewController: UIViewController {
             return days
         }
     }
+    
+    func dictKeyToIntArray(dictionary: [Int : String]) -> String {
+        var intArray = ""
+        for key in dictionary.keys {
+            intArray += "\(key)"
+        }
+        
+        return intArray
+    }
+    
+    
 }
 
+
+
+// MAKR: - TableView
 extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -22,6 +22,8 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,7 +35,6 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.textField.text = labelText
         return cell
     }
-    
     
 
     override func viewWillDisappear(_ animated: Bool) {

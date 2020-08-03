@@ -14,7 +14,7 @@ class RLM_Alarm : Object {
     /// 自動產生UUID
     @objc dynamic var uuid = UUID().uuidString
     
-    @objc dynamic var time: Int = 0
+    @objc dynamic var time: String = ""
     @objc dynamic var label: String = ""
     @objc dynamic var repeatDays: String = ""
     @objc dynamic var notificationSound: String = ""
@@ -29,7 +29,7 @@ class RLM_Alarm : Object {
 
 public struct AlarmsInTable {
     var UUID: String
-    var time: Int
+    var time: String
     var label: String
     var repeatDays: String
     var isAlarmActive: Bool
@@ -37,10 +37,12 @@ public struct AlarmsInTable {
 
 public struct AlarmData {
     var UUID: String?
-    var time: Int
+    var time: String
     var label: String
     var repeatDays: String
     var isAlarmActive: Bool
     var notificationSound: String
     var snooze: Bool
 }
+
+

@@ -51,6 +51,8 @@ struct AlarmDatabase {
     }
     
     /// 透過與 tableView cellForRowAt 連動，逐一載入「所有鬧鐘」的「部分資料」（供顯示於table中）
+    ///
+    /// 呼叫 tableView.reloadData() 前，必須先呼叫 clearLocalUserData()
     mutating func loadDataForTable(indexPath userIndexInTableView: Int) -> AlarmsInTable {
         if alarmsInTable == nil {
             loadDataFromDatabase()
