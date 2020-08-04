@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var alarmDatabase = AlarmDatabase()
-    var editMode = false
     var editOrAdd = ""
+    var selectedIndexRow: Int? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,10 @@ class ViewController: UIViewController {
     @objc func editAlarm(){
         print("editAlarm")
         editOrAdd = "編輯"
-        performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
+        tableView.isEditing = !tableView.isEditing
+        navigationItem.leftBarButtonItem?.title = (self.tableView.isEditing) ? "完成" : "編輯"
+        tableView.reloadData()
+        
     }
     
     @objc func addAlarm(){
@@ -41,20 +44,7 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "EditAddAlarmPageSegue" {
-
-            let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
-            let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
-            editAddAlarmPageVC.receivedActionMode = editOrAdd
-            
-            editAddAlarmPageVC.completionHandler = {
-                self.reloadDataForTableViewAndLocalData()
-            }
-
-        }
-    }
+    
     
     func reloadDataForTableViewAndLocalData() {
         print("Called: reloadDataForTableViewAndLocalData()")
@@ -74,7 +64,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
+        // alarmDataInTable
         let alarmData = alarmDatabase.loadDataForTable(indexPath: indexPath.row)
+        
         let timeText = "\((Int(alarmData.time) ?? 0) / 100):\((Int(alarmData.time) ?? 0) % 100)"
         cell.alarmTimeLabel.text = timeText
         cell.labelLabel.text = alarmData.label
@@ -83,13 +75,43 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if alarmData.repeatDays.count != 0{
             cell.repeatDaysLabel.text = getDayOfWeekText(alarmData.repeatDays)
         }
+
+        // 如果編輯模式，switch隱藏(editAlarm()中有reloadData())
+        cell.alarmSwitch.isHidden = tableView.isEditing
         
         return cell
     }
     
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("deleted")
+            // todo 刪除
+        }
+    }
+    
+    // 選擇了 cell 後，進入編輯頁面(由於property設定cell不可選、editing mode 下可單選)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if editMode {
-            
+        print("didSelectRowAt")
+        print(indexPath.row)
+        selectedIndexRow = indexPath.row
+        performSegue(withIdentifier: "EditAddAlarmPageSegue", sender: nil)
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "EditAddAlarmPageSegue" {
+
+            let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
+            let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
+            editAddAlarmPageVC.receivedActionMode = editOrAdd
+            let uuidForCell = alarmDatabase.loadDataForTable(indexPath: selectedIndexRow!).UUID
+            editAddAlarmPageVC.receivedAlarmData = alarmDatabase.loadSingleUserFullData(UUID: uuidForCell)
+            editAddAlarmPageVC.completionHandler = {
+                self.reloadDataForTableViewAndLocalData()
+            }
+
         }
     }
     

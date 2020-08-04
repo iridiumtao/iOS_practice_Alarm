@@ -31,10 +31,17 @@ class EditAddAlarmPageViewController: UIViewController {
         self.preferenceTableView.delegate = self
         self.preferenceTableView.dataSource = self
 
-        // Do any additional setup after loading the view.
+        // 設定navigaiton標題及按鈕
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(cancelOnClicked))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .done, target: self, action: #selector(saveOnClicked))
         self.navigationItem.title = "\(receivedActionMode)鬧鐘"
+        
+        // unpack alarmData
+        if (receivedAlarmData != nil) {
+            labelText = receivedAlarmData!.label
+            selectedDaysOfWeek = alarmDataRepeatDaysToDictionary(receivedAlarmData!.repeatDays)
+            // todo
+        }
         
         print("EditAddAlarmPage: ViewDidLoad")
         
@@ -53,7 +60,7 @@ class EditAddAlarmPageViewController: UIViewController {
         let dateString = formatter.string(from: datePicker.date)
         
         
-        let alarm = AlarmData(UUID: nil, time: dateString, label: labelText, repeatDays: dictKeyToIntArray(dictionary: selectedDaysOfWeek), isAlarmActive: isAlarmActive, notificationSound: "", snooze: isSnooze)
+        let alarm = AlarmData(UUID: nil, time: dateString, label: labelText, repeatDays: dictKeyToString(dictionary: selectedDaysOfWeek), isAlarmActive: isAlarmActive, notificationSound: "", snooze: isSnooze)
         alarmDatabase.writeData(alarmData: alarm)
         dismiss(animated: true, completion: nil)
         
@@ -103,13 +110,21 @@ class EditAddAlarmPageViewController: UIViewController {
         }
     }
     
-    func dictKeyToIntArray(dictionary: [Int : String]) -> String {
+    func dictKeyToString(dictionary: [Int : String]) -> String {
         var intArray = ""
         for key in dictionary.keys {
             intArray += "\(key)"
         }
         
         return intArray
+    }
+    
+    func alarmDataRepeatDaysToDictionary(_ days: String) -> [Int : String] {
+        var repeatDaysDictionary = Dictionary<Int, String>()
+        for day in days {
+            repeatDaysDictionary.updateValue(AlarmDataItem.daysOfWeek[Int(String(day))!]!, forKey: Int(String(day))!)
+        }
+        return repeatDaysDictionary
     }
     
     

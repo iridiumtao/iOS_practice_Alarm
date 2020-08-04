@@ -42,6 +42,7 @@ class CellLabelViewController: UIViewController, UITableViewDelegate, UITableVie
         
         print("CellLabel: viewWillDisappear")
         
+        // 在 tableView func 外使用 cell
         let index = IndexPath(row: 0, section: 0)
         let cell = self.tableView.cellForRow(at: index) as! CellLabelTextFieldTableViewCell
         labelText = cell.textField.text!

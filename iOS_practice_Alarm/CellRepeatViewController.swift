@@ -10,13 +10,6 @@ import UIKit
 
 class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let daysOfWeek: Dictionary<Int, String> = [1 : "星期日",
-                                               2 : "星期一",
-                                               3 : "星期二",
-                                               4 : "星期三",
-                                               5 : "星期四",
-                                               6 : "星期五",
-                                               7 : "星期六"]
     var selectedDaysOfWeek = Dictionary<Int, String>()
     
     var completionHandler:((Dictionary<Int, String>) -> Void)?
@@ -48,7 +41,7 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "Cell", for: indexPath) as UITableViewCell
-        cell.textLabel?.text = daysOfWeek[indexPath.row + 1]
+        cell.textLabel?.text = AlarmDataItem.daysOfWeek[indexPath.row + 1]
         
         
         // source: https://www.jianshu.com/p/3c45d744141b
@@ -86,7 +79,7 @@ class CellRepeatViewController: UIViewController, UITableViewDelegate, UITableVi
         selectedDaysOfWeek.removeAll()
         for selected in selectedArray {
             let day = (selected as! Int) + 1
-            selectedDaysOfWeek.updateValue(daysOfWeek[day]!, forKey: day)
+            selectedDaysOfWeek.updateValue(AlarmDataItem.daysOfWeek[day]!, forKey: day)
         }
         
         completionHandler?(selectedDaysOfWeek)
