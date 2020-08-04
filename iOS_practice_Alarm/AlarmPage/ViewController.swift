@@ -64,10 +64,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
-        // alarmDataInTable
+        // 裡面裝 alarmDataInTable
         let alarmData = alarmDatabase.loadDataForTable(indexPath: indexPath.row)
         
-        let timeText = "\((Int(alarmData.time) ?? 0) / 100):\((Int(alarmData.time) ?? 0) % 100)"
+        // uh... 聽說是某種「much easier」方法來分割文字
+        let str = alarmData.time
+        let hourStart = str.index(str.startIndex, offsetBy: 0)
+        let hourEnd = str.index(str.endIndex, offsetBy: -2)
+        let hourRange = hourStart ..< hourEnd
+        
+        let minuteStart = str.index(str.startIndex, offsetBy: 2)
+        let minuteEnd = str.endIndex
+        let minuteRange = minuteStart ..< minuteEnd
+        
+        // eg. 把 0805 變成 08:05
+        let timeText = "\(alarmData.time[hourRange]):\(alarmData.time[minuteRange])"
         cell.alarmTimeLabel.text = timeText
         cell.labelLabel.text = alarmData.label
         cell.alarmSwitch.setOn(alarmData.isAlarmActive, animated: true)
@@ -105,9 +116,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
             let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
             let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
+            
             editAddAlarmPageVC.receivedActionMode = editOrAdd
-            let uuidForCell = alarmDatabase.loadDataForTable(indexPath: selectedIndexRow!).UUID
-            editAddAlarmPageVC.receivedAlarmData = alarmDatabase.loadSingleUserFullData(UUID: uuidForCell)
+            
+            if editOrAdd == "編輯" {
+                // 取得UUID(為了給下一行用)
+                let uuidForCell = alarmDatabase.loadDataForTable(indexPath: selectedIndexRow!).UUID
+                // 傳送單使用者全部資料的struct
+                editAddAlarmPageVC.receivedAlarmData = alarmDatabase.loadSingleUserFullData(UUID: uuidForCell)
+            }
+            
+            // 閉包editAddAlarmPageVC結束後會被執行
             editAddAlarmPageVC.completionHandler = {
                 self.reloadDataForTableViewAndLocalData()
             }

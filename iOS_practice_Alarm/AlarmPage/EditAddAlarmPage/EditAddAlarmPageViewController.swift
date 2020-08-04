@@ -15,9 +15,12 @@ class EditAddAlarmPageViewController: UIViewController {
     var receivedActionMode = ""
     var receivedAlarmData: AlarmData? = nil
     
-    var labelText = "鬧鐘"
+    var uuid: String? = nil
+    var isAlarmActive = true
+
     var selectedDaysOfWeek = Dictionary<Int, String>()
-    var isAlarmActive = false
+    var labelText = "鬧鐘"
+    var sound = "Radar"
     var isSnooze = false
     
     var alarmDatabase = AlarmDatabase()
@@ -36,11 +39,15 @@ class EditAddAlarmPageViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .done, target: self, action: #selector(saveOnClicked))
         self.navigationItem.title = "\(receivedActionMode)鬧鐘"
         
-        // unpack alarmData
+        // unpack alarmData 如果存在
         if (receivedAlarmData != nil) {
-            labelText = receivedAlarmData!.label
+            uuid = receivedAlarmData!.UUID
+            isAlarmActive = receivedAlarmData!.isAlarmActive
+            
             selectedDaysOfWeek = alarmDataRepeatDaysToDictionary(receivedAlarmData!.repeatDays)
-            // todo
+            labelText = receivedAlarmData!.label
+            sound = receivedAlarmData!.sound
+            isSnooze = receivedAlarmData!.isSnooze
         }
         
         print("EditAddAlarmPage: ViewDidLoad")
@@ -60,7 +67,14 @@ class EditAddAlarmPageViewController: UIViewController {
         let dateString = formatter.string(from: datePicker.date)
         
         
-        let alarm = AlarmData(UUID: nil, time: dateString, label: labelText, repeatDays: dictKeyToString(dictionary: selectedDaysOfWeek), isAlarmActive: isAlarmActive, notificationSound: "", snooze: isSnooze)
+        let alarm = AlarmData(
+              UUID: uuid,
+              isAlarmActive: isAlarmActive,
+              time: dateString,
+              label: labelText,
+              repeatDays: dictKeyToString(dictionary: selectedDaysOfWeek),
+              sound: sound,
+              isSnooze: isSnooze)
         alarmDatabase.writeData(alarmData: alarm)
         dismiss(animated: true, completion: nil)
         

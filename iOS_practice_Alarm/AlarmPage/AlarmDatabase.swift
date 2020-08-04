@@ -24,8 +24,8 @@ struct AlarmDatabase {
         alarm.time = alarmData.time
         alarm.label = alarmData.label
         alarm.repeatDays = alarmData.repeatDays
-        alarm.notificationSound = alarmData.notificationSound
-        alarm.snooze = alarmData.snooze
+        alarm.sound = alarmData.sound
+        alarm.isSnooze = alarmData.isSnooze
         alarm.isAlarmActive = alarmData.isAlarmActive
 
         // 若無UUID -> 新增Alarm（會自動產生新的UUID）
@@ -60,11 +60,12 @@ struct AlarmDatabase {
             print("Local data not found. Getting data from database")
             return loadDataForTable(indexPath: userIndexInTableView)
         } else {
-            let alarmData: AlarmsInTable = AlarmsInTable(UUID: alarmsInTable![userIndexInTableView].UUID,
-                                                         time: alarmsInTable![userIndexInTableView].time,
-                                                         label: alarmsInTable![userIndexInTableView].label,
-                                                         repeatDays: alarmsInTable![userIndexInTableView].repeatDays,
-                                                         isAlarmActive: alarmsInTable![userIndexInTableView].isAlarmActive)
+            let alarmData: AlarmsInTable = AlarmsInTable(
+                 UUID: alarmsInTable![userIndexInTableView].UUID,
+                 isAlarmActive: alarmsInTable![userIndexInTableView].isAlarmActive,
+                 time: alarmsInTable![userIndexInTableView].time,
+                 label: alarmsInTable![userIndexInTableView].label,
+                 repeatDays: alarmsInTable![userIndexInTableView].repeatDays)
             return alarmData
         }
     }
@@ -79,11 +80,12 @@ struct AlarmDatabase {
         alarmsInTable = []
         let alarms = realm.objects(RLM_Alarm.self).sorted(byKeyPath: "time", ascending: true)
         for alarm in alarms {
-            alarmsInTable?.append(AlarmsInTable(UUID: alarm.uuid,
-                                                time: alarm.time,
-                                                label: alarm.label,
-                                                repeatDays: alarm.repeatDays,
-                                                isAlarmActive: alarm.isAlarmActive))
+            alarmsInTable?.append(AlarmsInTable(
+                UUID: alarm.uuid,
+                isAlarmActive: alarm.isAlarmActive,
+                time: alarm.time,
+                label: alarm.label,
+                repeatDays: alarm.repeatDays))
         }
     }
     
@@ -94,13 +96,14 @@ struct AlarmDatabase {
     func loadSingleUserFullData(UUID: String) -> AlarmData {
         let alarm = realm.objects(RLM_Alarm.self).filter("uuid  CONTAINS '\(UUID)'").first!
         
-        let alarmFullData: AlarmData = AlarmData(UUID: alarm.uuid,
-                                                 time: alarm.time,
-                                                 label: alarm.label,
-                                                 repeatDays: alarm.repeatDays,
-                                                 isAlarmActive: alarm.isAlarmActive,
-                                                 notificationSound: alarm.notificationSound,
-                                                 snooze: alarm.snooze)
+        let alarmFullData: AlarmData = AlarmData(
+             UUID: alarm.uuid,
+             isAlarmActive: alarm.isAlarmActive,
+             time: alarm.time,
+             label: alarm.label,
+             repeatDays: alarm.repeatDays,
+             sound: alarm.sound,
+             isSnooze: alarm.isSnooze)
         return alarmFullData
     }
 }

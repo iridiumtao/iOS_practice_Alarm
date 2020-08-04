@@ -17,8 +17,8 @@ class RLM_Alarm : Object {
     @objc dynamic var time: String = ""
     @objc dynamic var label: String = ""
     @objc dynamic var repeatDays: String = ""
-    @objc dynamic var notificationSound: String = ""
-    @objc dynamic var snooze: Bool = true
+    @objc dynamic var sound: String = ""
+    @objc dynamic var isSnooze: Bool = true
     @objc dynamic var isAlarmActive: Bool = true
     
     //設置索引主鍵
@@ -29,20 +29,20 @@ class RLM_Alarm : Object {
 
 public struct AlarmsInTable {
     var UUID: String
+    var isAlarmActive: Bool
     var time: String
     var label: String
     var repeatDays: String
-    var isAlarmActive: Bool
 }
 
 public struct AlarmData {
     var UUID: String?
+    var isAlarmActive: Bool
     var time: String
     var label: String
     var repeatDays: String
-    var isAlarmActive: Bool
-    var notificationSound: String
-    var snooze: Bool
+    var sound: String
+    var isSnooze: Bool
 }
 
 class AlarmDataItem {
