@@ -44,10 +44,14 @@ class EditAddAlarmPageViewController: UIViewController {
             uuid = receivedAlarmData!.UUID
             isAlarmActive = receivedAlarmData!.isAlarmActive
             
-            selectedDaysOfWeek = alarmDataRepeatDaysToDictionary(receivedAlarmData!.repeatDays)
+            selectedDaysOfWeek = AlarmDataItem.repeatDaysStringToDictionary(receivedAlarmData!.repeatDays)
             labelText = receivedAlarmData!.label
             sound = receivedAlarmData!.sound
             isSnooze = receivedAlarmData!.isSnooze
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HHmm"
+            datePicker.date = formatter.date(from: receivedAlarmData!.time)!
         }
         
         print("EditAddAlarmPage: ViewDidLoad")
@@ -72,7 +76,7 @@ class EditAddAlarmPageViewController: UIViewController {
               isAlarmActive: isAlarmActive,
               time: dateString,
               label: labelText,
-              repeatDays: dictKeyToString(dictionary: selectedDaysOfWeek),
+              repeatDays: AlarmDataItem.repeatDaysDictionaryKeyToString(dictionary: selectedDaysOfWeek),
               sound: sound,
               isSnooze: isSnooze)
         alarmDatabase.writeData(alarmData: alarm)
@@ -88,60 +92,6 @@ class EditAddAlarmPageViewController: UIViewController {
         super.viewWillDisappear(true)
         completionHandler?()
     }
-    
-    func getDaysOfWeekString(daysOfWeek: [Int : String]) -> String {
-        var days = ""
-        if daysOfWeek.count == 0 {
-            return "永不"
-        } else if daysOfWeek.count == 7 {
-            return "每天"
-        } else if !daysOfWeek.keys.contains(2) &&
-           !daysOfWeek.keys.contains(3) &&
-           !daysOfWeek.keys.contains(4) &&
-           !daysOfWeek.keys.contains(5) &&
-           !daysOfWeek.keys.contains(6) &&
-           daysOfWeek.keys.contains(1) &&
-           daysOfWeek.keys.contains(7) {
-            return "假日"
-        } else if daysOfWeek.keys.contains(2) &&
-                  daysOfWeek.keys.contains(3) &&
-                  daysOfWeek.keys.contains(4) &&
-                  daysOfWeek.keys.contains(5) &&
-                  daysOfWeek.keys.contains(6) &&
-                 !daysOfWeek.keys.contains(1) &&
-                 !daysOfWeek.keys.contains(7) {
-            return "平日"
-        } else {
-            
-            // 透過 keys 做排序
-            let sortedDaysOfWeek = daysOfWeek.sorted { firstDictionary, secondDictionary in
-                return firstDictionary.key < secondDictionary.key // 由小到大排序
-            }
-            for day in sortedDaysOfWeek {
-                days += "\(day.value) "
-            }
-            return days
-        }
-    }
-    
-    func dictKeyToString(dictionary: [Int : String]) -> String {
-        var intArray = ""
-        for key in dictionary.keys {
-            intArray += "\(key)"
-        }
-        
-        return intArray
-    }
-    
-    func alarmDataRepeatDaysToDictionary(_ days: String) -> [Int : String] {
-        var repeatDaysDictionary = Dictionary<Int, String>()
-        for day in days {
-            repeatDaysDictionary.updateValue(AlarmDataItem.daysOfWeek[Int(String(day))!]!, forKey: Int(String(day))!)
-        }
-        return repeatDaysDictionary
-    }
-    
-    
 }
 
 
@@ -180,10 +130,8 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                
                 labelCell.titleLabel.text = "重複"
-                labelCell.detailLabel.text = getDaysOfWeekString(daysOfWeek: selectedDaysOfWeek)
-                
+                labelCell.detailLabel.text = AlarmDataItem.getDaysOfWeekString(from: selectedDaysOfWeek)
                 return labelCell
             case 1:
                 labelCell.titleLabel.text = "標籤"
@@ -194,10 +142,8 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 labelCell.detailLabel.text = "電路"
                 return labelCell
             case 3:
-
                 switchCell.titleLabel.text = "稍後提醒"
                 return switchCell
-                
             default: break
                 
             }

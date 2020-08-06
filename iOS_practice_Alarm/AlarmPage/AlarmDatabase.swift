@@ -42,12 +42,30 @@ struct AlarmDatabase {
         }
         
         print(alarm)
-        print("\(realm.configuration.fileURL!)")
     }
     
-    func getDataCount() -> Int {
-        let alarms = realm.objects(RLM_Alarm.self)
-        return alarms.count
+    /// 只更改 alarm 啟用狀態
+    func writeData(UUID: String, isAlarmActive: Bool) {
+        
+        let alarm = realm.objects(RLM_Alarm.self).filter("uuid = %@", UUID).first
+
+        try! realm.write {
+            alarm!.isAlarmActive = isAlarmActive
+        }
+
+        
+    }
+    
+    /// 刪除資料
+    func deleteData(UUID: String) {
+        let alarm = realm.objects(RLM_Alarm.self).filter("uuid = %@", UUID)
+        try! realm.write {
+            realm.delete(alarm)
+        }
+    }
+    
+    mutating func getDataCount() -> Int {
+        return loadDataFromDatabase()
     }
     
     /// 透過與 tableView cellForRowAt 連動，逐一載入「所有鬧鐘」的「部分資料」（供顯示於table中）
@@ -55,9 +73,10 @@ struct AlarmDatabase {
     /// 呼叫 tableView.reloadData() 前，必須先呼叫 clearLocalUserData()
     mutating func loadDataForTable(indexPath userIndexInTableView: Int) -> AlarmsInTable {
         if alarmsInTable == nil {
-            loadDataFromDatabase()
-
             print("Local data not found. Getting data from database")
+
+            let count = loadDataFromDatabase()
+            print("data count: \(count)")
             return loadDataForTable(indexPath: userIndexInTableView)
         } else {
             let alarmData: AlarmsInTable = AlarmsInTable(
@@ -76,17 +95,54 @@ struct AlarmDatabase {
     }
     
     /// 將資料庫的資料暫存至 alarmsInTable
-    private mutating func loadDataFromDatabase() {
+    ///
+    /// 不應該讓他回傳，這只是暫時的方法（雖然我不會回來改）
+    private mutating func loadDataFromDatabase() -> Int{
         alarmsInTable = []
         let alarms = realm.objects(RLM_Alarm.self).sorted(byKeyPath: "time", ascending: true)
         for alarm in alarms {
-            alarmsInTable?.append(AlarmsInTable(
-                UUID: alarm.uuid,
-                isAlarmActive: alarm.isAlarmActive,
-                time: alarm.time,
-                label: alarm.label,
-                repeatDays: alarm.repeatDays))
+            if checkDataValid(alarm: alarm) {
+                alarmsInTable?.append(AlarmsInTable(
+                    UUID: alarm.uuid,
+                    isAlarmActive: alarm.isAlarmActive,
+                    time: alarm.time,
+                    label: alarm.label,
+                    repeatDays: alarm.repeatDays))
+            }
         }
+        print("\(realm.configuration.fileURL!)")
+        print("data count: \(alarmsInTable!.count)")
+        return alarmsInTable!.count
+    }
+
+    
+    private mutating func checkDataValid(alarm: RLM_Alarm) -> Bool {
+        var validNumber = 0
+        
+
+        if try! !NSRegularExpression(pattern: "[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}").matches(alarm.uuid) {
+            validNumber += 1
+        }
+        if try! !NSRegularExpression(pattern: "[0-9]{4}").matches(alarm.time) {
+            validNumber += 1
+        }
+        // 非空
+        if try! !NSRegularExpression(pattern: ".+").matches(alarm.label) {
+            validNumber += 1
+        }
+        
+        // 非空
+        if try! !NSRegularExpression(pattern: ".+").matches(alarm.sound) {
+            validNumber += 1
+        }
+        
+        // 匹配任意非數字字元時 不合法
+        if try! NSRegularExpression(pattern: "\\D").matches(alarm.repeatDays) {
+            validNumber += 1
+        }
+        
+        print(validNumber)
+        return (validNumber == 0 ? true : false)
     }
     
     /// 取得單鬧鐘的全部資料
@@ -107,3 +163,12 @@ struct AlarmDatabase {
         return alarmFullData
     }
 }
+
+
+extension NSRegularExpression {
+    func matches(_ string: String) -> Bool {
+        let range = NSRange(location: 0, length: string.utf16.count)
+        return firstMatch(in: string, options: [], range: range) != nil
+    }
+}
+

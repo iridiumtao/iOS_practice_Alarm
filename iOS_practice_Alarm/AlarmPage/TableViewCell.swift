@@ -15,12 +15,22 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var alarmSwitch: UISwitch!
     @IBOutlet weak var repeatDaysLabel: UILabel!
     
+    var uuid: String? = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
 
+    }
+    
+    @IBAction func switchValueChanged(_ sender: Any) {
+        let alarmDatabase = AlarmDatabase()
+        if uuid != nil {
+            alarmDatabase.writeData(UUID: uuid!, isAlarmActive: alarmSwitch.isOn)
+        } else {
+            print("\(alarmTimeLabel.text!) cell UUID nil")
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

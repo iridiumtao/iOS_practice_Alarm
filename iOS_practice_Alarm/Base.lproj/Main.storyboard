@@ -28,6 +28,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ESX-0M-yL2">
                                                     <rect key="frame" x="345" y="24.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchValueChanged:" destination="Qb7-4X-g0T" eventType="valueChanged" id="32S-zF-MCk"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09:36" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mx-tc-v46">
                                                     <rect key="frame" x="20" y="7" width="106" height="41"/>
@@ -133,20 +136,20 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" id="A67-Kp-28C" customClass="SwitchTableViewCell" customModule="iOS_practice_Alarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="99" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="99" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A67-Kp-28C" id="ek9-LA-yXK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EG1-zV-Dyn">
-                                                    <rect key="frame" x="20" y="11" width="42" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7qB-or-2QN">
-                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="345" y="6" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -163,7 +166,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteTextCell" id="Lud-LC-1c3" customClass="DeleteTextTableViewCell" customModule="iOS_practice_Alarm" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="142.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="142" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lud-LC-1c3" id="Kco-gr-HW7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>

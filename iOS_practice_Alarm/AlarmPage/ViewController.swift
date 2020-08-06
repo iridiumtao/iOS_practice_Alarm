@@ -56,7 +56,6 @@ class ViewController: UIViewController {
 // MARK: - tableView
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("alarmDatabase.getDataCount() \(alarmDatabase.getDataCount())")
         return alarmDatabase.getDataCount()
 
     }
@@ -80,11 +79,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         // eg. 把 0805 變成 08:05
         let timeText = "\(alarmData.time[hourRange]):\(alarmData.time[minuteRange])"
         cell.alarmTimeLabel.text = timeText
+        
         cell.labelLabel.text = alarmData.label
         cell.alarmSwitch.setOn(alarmData.isAlarmActive, animated: true)
         
+        cell.uuid = alarmData.UUID
+        
         if alarmData.repeatDays.count != 0{
-            cell.repeatDaysLabel.text = getDayOfWeekText(alarmData.repeatDays)
+            cell.repeatDaysLabel.text = "，" + AlarmDataItem.getDaysOfWeekString(from: alarmData.repeatDays)
+        } else {
+            cell.repeatDaysLabel.text = ""
         }
 
         // 如果編輯模式，switch隱藏(editAlarm()中有reloadData())
@@ -98,6 +102,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             print("deleted")
             // todo 刪除
+            
+            // 取得UUID(為了給下一行用)
+            let uuidForCell = alarmDatabase.loadDataForTable(indexPath: indexPath.row).UUID
+            // 傳送單使用者全部資料的struct
+            alarmDatabase.deleteData(UUID: uuidForCell)
+            reloadDataForTableViewAndLocalData()
         }
     }
     
@@ -132,25 +142,5 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
         }
-    }
-    
-    
-}
-
-// MARK: - functions
-extension ViewController {
-    func getDayOfWeekText(_ days: String) -> String {
-        let daysOfWeek: Dictionary<Int, String> = [1 : "星期日",
-                                                   2 : "星期一",
-                                                   3 : "星期二",
-                                                   4 : "星期三",
-                                                   5 : "星期四",
-                                                   6 : "星期五",
-                                                   7 : "星期六"]
-        var daysString = "，"
-        for day in days {
-            daysString += "\(daysOfWeek[Int(String(day))!]!) "
-        }
-        return daysString
     }
 }
