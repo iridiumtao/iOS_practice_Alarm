@@ -101,7 +101,7 @@
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xb7-mu-8SD">
                                 <rect key="frame" x="0.0" y="88" width="414" height="216"/>
-                                <locale key="locale" localeIdentifier="zh_TW"/>
+                                <locale key="locale" localeIdentifier="en_GB"/>
                             </datePicker>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="J9y-VB-I5z">
                                 <rect key="frame" x="0.0" y="304" width="414" height="558"/>
@@ -209,7 +209,7 @@
                         <outlet property="preferenceTableView" destination="J9y-VB-I5z" id="jJ7-cc-8QP"/>
                         <segue destination="XWv-Pi-1nS" kind="show" identifier="CellRepeatSegue" id="6ci-90-PAS"/>
                         <segue destination="Rot-wz-Q90" kind="show" identifier="CellLabelSegue" id="DrS-Ds-XdE"/>
-                        <segue destination="o7b-k2-PNg" kind="show" identifier="CellNotifySegue" id="MxJ-WG-XUV"/>
+                        <segue destination="o7b-k2-PNg" kind="show" identifier="CellSoundSegue" id="MxJ-WG-XUV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m3E-OS-C85" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -334,20 +334,20 @@
             </objects>
             <point key="canvasLocation" x="3695.652173913044" y="137.94642857142856"/>
         </scene>
-        <!--Cell Notify View Controller-->
+        <!--Cell Sound View Controller-->
         <scene sceneID="NyD-LC-DAQ">
             <objects>
-                <viewController id="o7b-k2-PNg" customClass="CellNotifyViewController" customModule="iOS_practice_Alarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o7b-k2-PNg" customClass="CellSoundViewController" customModule="iOS_practice_Alarm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HNf-Yj-mVh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gve-gR-RM6">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="gve-gR-RM6">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="oA9-Rp-hdS">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oA9-Rp-hdS" id="ae7-in-aFR">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -367,6 +367,9 @@
                         <viewLayoutGuide key="safeArea" id="dE6-Ej-Rtb"/>
                     </view>
                     <navigationItem key="navigationItem" id="xRh-Ac-WZo"/>
+                    <connections>
+                        <outlet property="tableView" destination="gve-gR-RM6" id="UCp-DE-Veu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DxD-8H-ihz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

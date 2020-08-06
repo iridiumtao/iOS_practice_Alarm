@@ -10,7 +10,7 @@
 		3590B080D6E3F29FE77D0EC3 /* Pods_iOS_practice_Alarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA47142A66207E2C40D1E65 /* Pods_iOS_practice_Alarm.framework */; };
 		3C3CF79B24D0150E00973675 /* CellRepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3CF79A24D0150E00973675 /* CellRepeatViewController.swift */; };
 		3C3CF79D24D0154200973675 /* CellLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3CF79C24D0154200973675 /* CellLabelViewController.swift */; };
-		3C3CF79F24D0155600973675 /* CellNotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3CF79E24D0155600973675 /* CellNotifyViewController.swift */; };
+		3C3CF79F24D0155600973675 /* CellSoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3CF79E24D0155600973675 /* CellSoundViewController.swift */; };
 		3C3CF7A124D02AF000973675 /* CellLabelTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3CF7A024D02AF000973675 /* CellLabelTextFieldTableViewCell.swift */; };
 		3C5E39DE24C9758A00F147F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39DD24C9758A00F147F1 /* AppDelegate.swift */; };
 		3C5E39E024C9758A00F147F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39DF24C9758A00F147F1 /* SceneDelegate.swift */; };
@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		3C3CF79A24D0150E00973675 /* CellRepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CellRepeatViewController.swift; path = iOS_practice_Alarm/CellRepeatViewController.swift; sourceTree = SOURCE_ROOT; };
 		3C3CF79C24D0154200973675 /* CellLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLabelViewController.swift; sourceTree = "<group>"; };
-		3C3CF79E24D0155600973675 /* CellNotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellNotifyViewController.swift; sourceTree = "<group>"; };
+		3C3CF79E24D0155600973675 /* CellSoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSoundViewController.swift; sourceTree = "<group>"; };
 		3C3CF7A024D02AF000973675 /* CellLabelTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLabelTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		3C5E39DA24C9758A00F147F1 /* iOS_practice_Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_practice_Alarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C5E39DD24C9758A00F147F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 				3C3CF79A24D0150E00973675 /* CellRepeatViewController.swift */,
 				3C3CF79C24D0154200973675 /* CellLabelViewController.swift */,
 				3C3CF7A024D02AF000973675 /* CellLabelTextFieldTableViewCell.swift */,
-				3C3CF79E24D0155600973675 /* CellNotifyViewController.swift */,
+				3C3CF79E24D0155600973675 /* CellSoundViewController.swift */,
 			);
 			path = PageInCells;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				3C8DE6D824CD6ECB008C60A1 /* SwitchTableViewCell.swift in Sources */,
 				3C3CF79D24D0154200973675 /* CellLabelViewController.swift in Sources */,
 				3C8DE6DE24CD6FB6008C60A1 /* LabelTableViewCell.swift in Sources */,
-				3C3CF79F24D0155600973675 /* CellNotifyViewController.swift in Sources */,
+				3C3CF79F24D0155600973675 /* CellSoundViewController.swift in Sources */,
 				3C8DE6E024CD7090008C60A1 /* DeleteTextTableViewCell.swift in Sources */,
 				3C5E39F624C9991400F147F1 /* AlarmDataItem.swift in Sources */,
 				3C5E39E024C9758A00F147F1 /* SceneDelegate.swift in Sources */,

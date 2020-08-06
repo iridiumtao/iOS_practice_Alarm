@@ -20,7 +20,7 @@ class EditAddAlarmPageViewController: UIViewController {
 
     var selectedDaysOfWeek = Dictionary<Int, String>()
     var labelText = "鬧鐘"
-    var sound = "Radar"
+    var sound = "雷達"
     var isSnooze = false
     
     var alarmDatabase = AlarmDatabase()
@@ -70,6 +70,9 @@ class EditAddAlarmPageViewController: UIViewController {
         formatter.dateFormat = "HHmm"
         let dateString = formatter.string(from: datePicker.date)
         
+        let indexPath = IndexPath(row: 3, section: 0)
+        let cell = preferenceTableView.cellForRow(at: indexPath) as! SwitchTableViewCell
+        isSnooze = cell.justSwitch.isOn
         
         let alarm = AlarmData(
               UUID: uuid,
@@ -139,10 +142,11 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 return labelCell
             case 2:
                 labelCell.titleLabel.text = "提示聲"
-                labelCell.detailLabel.text = "電路"
+                labelCell.detailLabel.text = sound
                 return labelCell
             case 3:
                 switchCell.titleLabel.text = "稍後提醒"
+                switchCell.justSwitch.isOn = isSnooze
                 return switchCell
             default: break
                 
@@ -165,7 +169,7 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 performSegue(withIdentifier: "CellLabelSegue", sender: nil)
             case 2:
                 // 提示聲
-               performSegue(withIdentifier: "CellNotifySegue", sender: nil)
+               performSegue(withIdentifier: "CellSoundSegue", sender: nil)
             case 3:
                 // 稍後提醒
                 break
@@ -173,8 +177,8 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 
             }
         } else {
-            // 刪除
-            
+            alarmDatabase.deleteData(UUID: uuid!)
+            dismiss(animated: true, completion: nil)
         }
         
     }
@@ -182,11 +186,6 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
-        case "EditAddAlarmPageSegue":
-//                let editAddAlarmPageNavigationController = segue.destination as! UINavigationController
-//                let editAddAlarmPageVC = editAddAlarmPageNavigationController.topViewController as! EditAddAlarmPageViewController
-            break
-        
         case "CellRepeatSegue":
             print("CellRepeatSegue")
             let cellPepeatVC = segue.destination as! CellRepeatViewController
@@ -214,7 +213,15 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
                 self.labelText = text
                 self.preferenceTableView.reloadData()
             }
-        
+        case "CellSoundSegue":
+            print("CellSoundSegue")
+            let cellSoundVC = segue.destination as! CellSoundViewController
+            cellSoundVC.completionHandler = { text in
+                print(text)
+                self.sound = text
+                self.preferenceTableView.reloadData()
+            }
+            
         default:
             break
         }
