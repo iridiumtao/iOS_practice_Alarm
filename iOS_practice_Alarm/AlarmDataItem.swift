@@ -12,7 +12,7 @@ import RealmSwift
 class RLM_Alarm : Object {
 
     /// 自動產生UUID
-    @objc dynamic var uuid = UUID().uuidString
+    @objc dynamic var uuid = ""
     
     @objc dynamic var time: String = ""
     @objc dynamic var label: String = ""

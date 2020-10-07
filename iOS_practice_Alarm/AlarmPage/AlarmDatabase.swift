@@ -16,8 +16,10 @@ struct AlarmDatabase {
     
     let realm = try! Realm()
     
+    var alarmNotification = AlarmNotificationCenter()
+    
     /// 新增／編輯 Alarm
-    func writeData(alarmData: AlarmData) {
+    mutating func writeData(alarmData: AlarmData) {
         
         // AlarmDataItem.swift裡的class
         let alarm = RLM_Alarm()
@@ -31,6 +33,8 @@ struct AlarmDatabase {
         // 若無UUID -> 新增Alarm（會自動產生新的UUID）
         // 若有UUID -> 寫入UUID，更新Alarm
         if alarmData.UUID == nil {
+            // 自動產生UUID
+            alarm.uuid = UUID().uuidString
             try! realm.write {
                 realm.add(alarm)
             }
@@ -41,19 +45,45 @@ struct AlarmDatabase {
             }
         }
         
+        
+        // 通知
+        addNotification(alarm: alarm)
+        
+        print(alarm.uuid)
         print(alarm)
     }
     
     /// 只更改 alarm 啟用狀態
-    func writeData(UUID: String, isAlarmActive: Bool) {
+    mutating func writeData(UUID: String, isAlarmActive: Bool) {
         
         let alarm = realm.objects(RLM_Alarm.self).filter("uuid = %@", UUID).first
 
         try! realm.write {
-            alarm!.isAlarmActive = isAlarmActive
+            // 有了 if let 後面的alarm就不用加"!"
+            if let alarm = alarm {
+                // 更新 alarm 的啟動狀態
+                alarm.isAlarmActive = isAlarmActive
+                
+                // 新增或刪除通知
+                if alarm.isAlarmActive {
+                    addNotification(alarm: alarm)
+                } else {
+                    deleteNotification(uuid: alarm.uuid)
+                }
+            }
+            
         }
 
         
+    }
+    
+    /// 新增通知
+    mutating func addNotification(alarm: RLM_Alarm) {
+        alarmNotification.addNotification(uuid: alarm.uuid, title: "鬧鐘響起", subtitle: "鬧鐘時間\(alarm.time)", body: "\(alarm.uuid)\n重複週期\(alarm.repeatDays)", time: alarm.time, repeatDays: alarm.repeatDays)
+    }
+    
+    mutating func deleteNotification(uuid: String) {
+        alarmNotification.deleteNotification(uuid: uuid)
     }
     
     /// 刪除資料
@@ -141,7 +171,7 @@ struct AlarmDatabase {
             validNumber += 1
         }
         
-        print(validNumber)
+        
         return (validNumber == 0 ? true : false)
     }
     

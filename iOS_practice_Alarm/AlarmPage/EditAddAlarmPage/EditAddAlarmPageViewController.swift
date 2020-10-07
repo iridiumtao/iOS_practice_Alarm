@@ -34,7 +34,7 @@ class EditAddAlarmPageViewController: UIViewController {
         self.preferenceTableView.delegate = self
         self.preferenceTableView.dataSource = self
 
-        // 設定navigaiton標題及按鈕
+        // 設定navigation標題及按鈕
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(cancelOnClicked))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .done, target: self, action: #selector(saveOnClicked))
         self.navigationItem.title = "\(receivedActionMode)鬧鐘"
@@ -74,15 +74,22 @@ class EditAddAlarmPageViewController: UIViewController {
         let cell = preferenceTableView.cellForRow(at: indexPath) as! SwitchTableViewCell
         isSnooze = cell.justSwitch.isOn
         
+        let repeatDays = AlarmDataItem.repeatDaysDictionaryKeyToString(dictionary: selectedDaysOfWeek)
+        
         let alarm = AlarmData(
               UUID: uuid,
               isAlarmActive: isAlarmActive,
               time: dateString,
               label: labelText,
-              repeatDays: AlarmDataItem.repeatDaysDictionaryKeyToString(dictionary: selectedDaysOfWeek),
+              repeatDays: repeatDays,
               sound: sound,
               isSnooze: isSnooze)
         alarmDatabase.writeData(alarmData: alarm)
+        
+        
+        
+        
+        
         dismiss(animated: true, completion: nil)
         
     }
@@ -188,11 +195,11 @@ extension EditAddAlarmPageViewController: UITableViewDelegate, UITableViewDataSo
         switch segue.identifier {
         case "CellRepeatSegue":
             print("CellRepeatSegue")
-            let cellPepeatVC = segue.destination as! CellRepeatViewController
+            let cellRepeatVC = segue.destination as! CellRepeatViewController
             
-            cellPepeatVC.selectedDaysOfWeek = selectedDaysOfWeek
+            cellRepeatVC.selectedDaysOfWeek = selectedDaysOfWeek
             
-            cellPepeatVC.completionHandler = { data in
+            cellRepeatVC.completionHandler = { data in
                 self.selectedDaysOfWeek = data
                 self.preferenceTableView.reloadData()
 

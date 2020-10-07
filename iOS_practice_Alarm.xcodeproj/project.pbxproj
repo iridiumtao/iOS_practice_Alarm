@@ -22,6 +22,7 @@
 		3C5E39F424C98B4800F147F1 /* AlarmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */; };
 		3C5E39F624C9991400F147F1 /* AlarmDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */; };
 		3C5E39F824CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */; };
+		3C7A1025251C734000CD3F4F /* AlarmNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7A1024251C734000CD3F4F /* AlarmNotificationCenter.swift */; };
 		3C8DE6D824CD6ECB008C60A1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6D724CD6ECB008C60A1 /* SwitchTableViewCell.swift */; };
 		3C8DE6DE24CD6FB6008C60A1 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6DD24CD6FB6008C60A1 /* LabelTableViewCell.swift */; };
 		3C8DE6E024CD7090008C60A1 /* DeleteTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8DE6DF24CD7090008C60A1 /* DeleteTextTableViewCell.swift */; };
@@ -44,6 +45,8 @@
 		3C5E39F324C98B4800F147F1 /* AlarmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDatabase.swift; sourceTree = "<group>"; };
 		3C5E39F524C9991400F147F1 /* AlarmDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDataItem.swift; sourceTree = "<group>"; };
 		3C5E39F724CB0BFB00F147F1 /* EditAddAlarmPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAddAlarmPageViewController.swift; sourceTree = "<group>"; };
+		3C7A1022251C712800CD3F4F /* iOS_practice_Alarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS_practice_Alarm.entitlements; sourceTree = "<group>"; };
+		3C7A1024251C734000CD3F4F /* AlarmNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNotificationCenter.swift; sourceTree = "<group>"; };
 		3C8DE6D724CD6ECB008C60A1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		3C8DE6DD24CD6FB6008C60A1 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 		3C8DE6DF24CD7090008C60A1 /* DeleteTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -85,8 +88,10 @@
 		3C5E39DC24C9758A00F147F1 /* iOS_practice_Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				3C7A1022251C712800CD3F4F /* iOS_practice_Alarm.entitlements */,
 				3C8DE6DB24CD6EEB008C60A1 /* AlarmPage */,
 				3C5E39DD24C9758A00F147F1 /* AppDelegate.swift */,
+				3C7A1024251C734000CD3F4F /* AlarmNotificationCenter.swift */,
 				3C5E39DF24C9758A00F147F1 /* SceneDelegate.swift */,
 				3C5E39E324C9758A00F147F1 /* Main.storyboard */,
 				3C5E39E624C9758B00F147F1 /* Assets.xcassets */,
@@ -270,6 +275,7 @@
 				3C3CF7A124D02AF000973675 /* CellLabelTextFieldTableViewCell.swift in Sources */,
 				3C5E39F224C987B100F147F1 /* TableViewCell.swift in Sources */,
 				3C5E39DE24C9758A00F147F1 /* AppDelegate.swift in Sources */,
+				3C7A1025251C734000CD3F4F /* AlarmNotificationCenter.swift in Sources */,
 				3C8DE6D824CD6ECB008C60A1 /* SwitchTableViewCell.swift in Sources */,
 				3C3CF79D24D0154200973675 /* CellLabelViewController.swift in Sources */,
 				3C8DE6DE24CD6FB6008C60A1 /* LabelTableViewCell.swift in Sources */,
@@ -421,6 +427,7 @@
 			baseConfigurationReference = B463C8842E3ADDED2271C476 /* Pods-iOS_practice_Alarm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS_practice_Alarm/iOS_practice_Alarm.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				INFOPLIST_FILE = iOS_practice_Alarm/Info.plist;
@@ -440,6 +447,7 @@
 			baseConfigurationReference = DA887A16205692E4072D6B9B /* Pods-iOS_practice_Alarm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS_practice_Alarm/iOS_practice_Alarm.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S8FBP4YLUA;
 				INFOPLIST_FILE = iOS_practice_Alarm/Info.plist;

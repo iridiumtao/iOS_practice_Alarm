@@ -34,9 +34,13 @@ class ViewController: UIViewController {
         editOrAdd = "編輯"
         tableView.isEditing = !tableView.isEditing
         navigationItem.leftBarButtonItem?.title = (self.tableView.isEditing) ? "完成" : "編輯"
+        
+        
         tableView.reloadData()
         
     }
+    
+    
     
     @objc func addAlarm(){
         print("addAlarm")

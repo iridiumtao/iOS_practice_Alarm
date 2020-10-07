@@ -23,7 +23,7 @@ class TableViewCell: UITableViewCell {
     }
     
     @IBAction func switchValueChanged(_ sender: Any) {
-        let alarmDatabase = AlarmDatabase()
+        var alarmDatabase = AlarmDatabase()
         if uuid != nil {
             alarmDatabase.writeData(UUID: uuid!, isAlarmActive: alarmSwitch.isOn)
         } else {
