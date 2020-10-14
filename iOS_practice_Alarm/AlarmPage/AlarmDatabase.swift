@@ -79,7 +79,7 @@ struct AlarmDatabase {
     
     /// 新增通知
     mutating func addNotification(alarm: RLM_Alarm) {
-        alarmNotification.addNotification(uuid: alarm.uuid, title: "鬧鐘響起", subtitle: "鬧鐘時間\(alarm.time)", body: "\(alarm.uuid)\n重複週期\(alarm.repeatDays)", time: alarm.time, repeatDays: alarm.repeatDays)
+        alarmNotification.addNotification(uuid: alarm.uuid, title: "鬧鐘響起", subtitle: "鬧鐘時間\(alarm.time)", body: "\(alarm.uuid)\n重複週期\(alarm.repeatDays)", time: alarm.time, repeatWeekDays: alarm.repeatDays)
     }
     
     mutating func deleteNotification(uuid: String) {

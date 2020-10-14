@@ -100,6 +100,11 @@ class AlarmDataItem {
             intArray += "\(key)"
         }
         
+        // 20/10/07 為了讓 AlarmNotificationCenter 那邊比較好寫，把回傳空字串改為回傳 0
+        if intArray == "" {
+            intArray = "0"
+        }
+        
         return intArray
     }
     
@@ -107,7 +112,12 @@ class AlarmDataItem {
     static func repeatDaysStringToDictionary(_ days: String) -> [Int : String] {
         var repeatDaysDictionary = Dictionary<Int, String>()
         
-        for day in days {
+        var daysChecked = days
+        if daysChecked == "0" {
+            daysChecked = ""
+        }
+        
+        for day in daysChecked {
             repeatDaysDictionary.updateValue(AlarmDataItem.daysOfWeek[Int(String(day))!]!, forKey: Int(String(day))!)
         }
         return repeatDaysDictionary
